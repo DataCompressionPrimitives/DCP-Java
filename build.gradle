@@ -1,12 +1,18 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'com.github.hierynomus.license' version '0.15.0'
 }
 
 group 'org.dcp'
 version '1.0'
 
 sourceCompatibility = 1.8
+
+license {
+    header rootProject.file('code/Header.java')
+    strictCheck true
+}
 
 repositories {
     mavenCentral()

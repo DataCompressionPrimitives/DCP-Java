@@ -1,3 +1,8 @@
+/**
+ * Copyright 2019 DataCompressionPrimitives.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ */
 package org.dcp.io;
 
 import org.dcp.entities.Bit;

@@ -14,6 +14,10 @@ In the future, this may get updated to Java 11 LTS.
 ./gradlew build
 ```
 
+## License
+
+Please see the included LICENSE.md in this repository.
+
 ## Feedback
 
 Please file a GitHub ticket if you find any bugs or have any suggestions.
