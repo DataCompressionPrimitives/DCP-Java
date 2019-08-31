@@ -14,14 +14,14 @@ public class BitTest {
 
     @Test
     public void testBasicFunctionality() {
-        final Bit bitFirst = new Bit(false);
+        final Bit bitFirst = Bit.valueOf(false);
         assertEquals(bitFirst.value(), false);
-        assertEquals(bitFirst.toInt(), 0);
+        assertEquals(bitFirst.intValue(), 0);
         assertEquals(bitFirst.toString(), "0");
 
-        final Bit bitSecond = new Bit(true);
+        final Bit bitSecond = Bit.valueOf(true);
         assertEquals(bitSecond.value(), true);
-        assertEquals(bitSecond.toInt(), 1);
+        assertEquals(bitSecond.intValue(), 1);
         assertEquals(bitSecond.toString(), "1");
     }
 }
