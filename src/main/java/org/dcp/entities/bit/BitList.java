@@ -3,18 +3,15 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
-package org.dcp.entities;
+package org.dcp.entities.bit;
 
 import java.util.Iterator;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.dcp.entities.Constants.BITS_IN_A_BYTE;
+import static org.dcp.entities.Constants.*;
 
 public class BitList implements Iterable<Bit> {
-
-    public static final int BYTES_IN_A_SEGMENT = 8;
-    public static final int BITS_IN_A_SEGMENT = BITS_IN_A_BYTE * BYTES_IN_A_SEGMENT;
 
     private final long []bitSegments;
     private final int sizeInBits;

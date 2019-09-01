@@ -5,6 +5,8 @@
  */
 package org.dcp.entities;
 
+import org.dcp.entities.bit.BitStreamSerializable;
+
 public abstract class Symbol implements BitStreamSerializable {
 
     final protected int indexValue;

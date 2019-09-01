@@ -5,7 +5,7 @@
  */
 package org.dcp.test.entities;
 
-import org.dcp.entities.Bit;
+import org.dcp.entities.bit.Bit;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

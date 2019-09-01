@@ -5,10 +5,16 @@
  */
 package org.dcp.io;
 
-import org.dcp.entities.Bit;
+import org.dcp.entities.bit.Bit;
 
 public interface BitOutputStream {
     public void writeBit(final Bit bit);
-    public void writeBits(final Iterable<Bit> bits);
+
+    public default void writeBits(final Iterable<Bit> bits) {
+        for(final Bit bit: bits) {
+            writeBit(bit);
+        }
+    }
+
     public void flushBits();
 }
