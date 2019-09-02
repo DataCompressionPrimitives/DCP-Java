@@ -19,7 +19,7 @@ public class BitList implements Iterable<Bit> {
 
     public BitList(final int sizeInBits) {
         if(sizeInBits <= 0)
-            throw new IllegalArgumentException(String.format("Size should be >= 0. Size: %d\n", sizeInBits));
+            throw new IllegalArgumentException(String.format("Size should be >0. Size: %d\n", sizeInBits));
         this.sizeInBits = sizeInBits;
         this.sizeInSegments = getSizeInSegments(this.sizeInBits);
         this.bitSegments = new long[sizeInSegments];

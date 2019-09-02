@@ -10,8 +10,7 @@ import org.dcp.entities.bit.BitList;
 import org.dcp.entities.bit.BitStreamSerializable;
 import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
-
-import static org.dcp.entities.Constants.BITS_IN_A_INTEGER;
+import org.dcp.util.EntropyUtil;
 
 public class UnsignedInteger implements BitStreamSerializable {
 
@@ -19,14 +18,12 @@ public class UnsignedInteger implements BitStreamSerializable {
     final long integralValue;
 
     public UnsignedInteger(final long integralValue, final int sizeInBits) {
-        if(sizeInBits >= BITS_IN_A_INTEGER)
-            throw new IllegalArgumentException(String.format("Bits cannot be greater Maximum. Maximum: %d Bits: ", BITS_IN_A_INTEGER - 1, sizeInBits));
         if(integralValue < 0) {
             throw new IllegalArgumentException(String.format("Unsigned numbers cannot be negative. Value: %d", integralValue));
         }
-        final long maximumValue = ~(-1L<<sizeInBits);
+        final long maximumValue = EntropyUtil.findMaximumValueRepresentible(sizeInBits);
         if(integralValue > maximumValue)
-            throw new IllegalArgumentException(String.format("Given value cannot be represented. Maximum: %d Value: %d", maximumValue, integralValue));
+            throw new IllegalArgumentException(String.format("Given value cannot be greater than Maximum: %d Value: %d", maximumValue, integralValue));
         this.integralValue = integralValue;
         this.sizeInBits = sizeInBits;
     }

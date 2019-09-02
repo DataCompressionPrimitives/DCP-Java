@@ -8,7 +8,7 @@ package org.dcp.entities.primitives;
 import org.dcp.entities.bit.BitStreamSerializable;
 import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
-import static org.dcp.entities.Constants.*;
+import org.dcp.util.EntropyUtil;
 
 public class Integer implements BitStreamSerializable {
 
@@ -16,19 +16,13 @@ public class Integer implements BitStreamSerializable {
     final boolean isNegative;
 
     public Integer(final long integralValue, final int sizeInBits) {
-        long unsignedIntValue;
-        if(sizeInBits >= BITS_IN_A_INTEGER)
-            throw new IllegalArgumentException(String.format("Bits cannot be greater Maximum. Maximum: %d Bits: ", BITS_IN_A_INTEGER - 1, sizeInBits));
-        if(integralValue == java.lang.Long.MIN_VALUE)
-            throw new IllegalArgumentException(String.format("Value cannot be lesser than: %d", java.lang.Long.MIN_VALUE + 1));
-        if(integralValue < 0) {
-            isNegative = true;
-            unsignedIntValue = -integralValue;
-        } else {
-            isNegative = false;
-            unsignedIntValue = integralValue;
-        }
-        this.unsignedInteger = new UnsignedInteger(unsignedIntValue, sizeInBits);
+        isNegative = (integralValue < 0);
+        final long unsignedIntValue = isNegative ? -integralValue: integralValue;
+        final int sizeInBitsUnsigned = sizeInBits - 1;
+        final long neededSizeInBits = EntropyUtil.findSizeOfBitsToHold(unsignedIntValue);
+        if(neededSizeInBits > sizeInBitsUnsigned)
+            throw new IllegalArgumentException(String.format("Needed Bits cannot be > than SizeUnsigned. NeededSize: %d SizeUnsigned: %d", neededSizeInBits, sizeInBitsUnsigned));
+        this.unsignedInteger = new UnsignedInteger(unsignedIntValue, sizeInBitsUnsigned);
     }
 
     public Integer(final int sizeInBits) {
@@ -44,7 +38,7 @@ public class Integer implements BitStreamSerializable {
         boolean isNegative = bitInputStream.readBit().value();
         final UnsignedInteger readInteger = unsignedInteger.readFrom(bitInputStream);
         final long integralValue = isNegative? (-readInteger.integralValue): readInteger.integralValue;
-        return new Integer(integralValue, unsignedInteger.sizeInBits);
+        return new Integer(integralValue, unsignedInteger.sizeInBits + 1);
     }
 
     @Override
