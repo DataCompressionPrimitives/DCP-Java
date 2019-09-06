@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
-package org.dcp.test.io;
+package org.dcp.test.io.impl;
 
 import org.dcp.entities.bit.Bit;
 import org.dcp.entities.bit.BitList;
@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class BitInputStreamTest {
+public class MockBitInputStreamTest {
 
     @Test
     public void testBasicFunctionality(){
