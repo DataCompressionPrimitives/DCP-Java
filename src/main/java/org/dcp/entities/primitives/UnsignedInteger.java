@@ -6,7 +6,7 @@
 package org.dcp.entities.primitives;
 
 import org.dcp.entities.bit.Bit;
-import org.dcp.entities.bit.BitList;
+import org.dcp.entities.bit.BitBuffer;
 import org.dcp.entities.bit.BitStreamSerializable;
 import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
@@ -40,7 +40,7 @@ public class UnsignedInteger implements BitStreamSerializable {
     public UnsignedInteger readFrom(BitInputStream bitInputStream)
     {
         final Iterable<Bit> bitsRead = bitInputStream.readBits(this.sizeInBits);
-        final long readInteger = java.lang.Long.parseUnsignedLong(new BitList(bitsRead, this.sizeInBits).toString(), 2);
+        final long readInteger = java.lang.Long.parseUnsignedLong(new BitBuffer(bitsRead, this.sizeInBits).toString(), 2);
         return new UnsignedInteger(readInteger, sizeInBits);
     }
 
@@ -54,7 +54,7 @@ public class UnsignedInteger implements BitStreamSerializable {
             stringBuilder.append('0');
         }
         stringBuilder.append(binaryString);
-        bitOutputStream.writeBits(new BitList(stringBuilder.toString()));
+        bitOutputStream.writeBits(new BitBuffer(stringBuilder.toString()));
     }
 
 }

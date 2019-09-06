@@ -6,7 +6,7 @@
 package org.dcp.test.io.impl;
 
 import org.dcp.entities.bit.Bit;
-import org.dcp.entities.bit.BitList;
+import org.dcp.entities.bit.BitBuffer;
 import org.dcp.io.BitOutputStream;
 import org.dcp.io.impl.MockBitOutputStream;
 import org.junit.Test;
@@ -26,18 +26,18 @@ public class MockBitOutputStreamTest {
     @Test
     public void testWriteBitsFunctionality(){
         final BitOutputStream bitOutputStream = new MockBitOutputStream();
-        final BitList bitList = new BitList("001001");
-        bitOutputStream.writeBits(bitList);
-        assertEquals(bitOutputStream.toString(), bitList.toString());
+        final BitBuffer bitBuffer = new BitBuffer("001001");
+        bitOutputStream.writeBits(bitBuffer);
+        assertEquals(bitOutputStream.toString(), bitBuffer.toString());
     }
 
     @Test
     public void testFlushFunctionality(){
         final BitOutputStream bitOutputStream = new MockBitOutputStream();
-        final BitList bitList = new BitList("001001");
-        bitOutputStream.writeBits(bitList);
+        final BitBuffer bitBuffer = new BitBuffer("001001");
+        bitOutputStream.writeBits(bitBuffer);
         bitOutputStream.flushBits();
-        assertEquals(bitOutputStream.toString(), bitList.toString() + "00");
+        assertEquals(bitOutputStream.toString(), bitBuffer.toString() + "00");
     }
 
 }

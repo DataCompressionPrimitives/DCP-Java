@@ -6,7 +6,7 @@
 package org.dcp.test.io.impl;
 
 import org.dcp.entities.bit.Bit;
-import org.dcp.entities.bit.BitList;
+import org.dcp.entities.bit.BitBuffer;
 import org.dcp.io.BitOutputStream;
 import org.dcp.io.impl.ChannelBitOutputStream;
 import org.junit.Test;
@@ -34,8 +34,8 @@ public class ChannelBitOutputStreamTest {
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         final WritableByteChannel channel = Channels.newChannel(outputStream);
         final BitOutputStream bitOutputStream = new ChannelBitOutputStream(channel);
-        final BitList bitList = new BitList("001001");
-        bitOutputStream.writeBits(bitList);
+        final BitBuffer bitBuffer = new BitBuffer("001001");
+        bitOutputStream.writeBits(bitBuffer);
         bitOutputStream.flushBits();
         assertEquals(outputStream.toByteArray()[0], (byte) 0b00100100);
     }

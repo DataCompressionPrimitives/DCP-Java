@@ -11,13 +11,13 @@ import java.util.stream.StreamSupport;
 
 import static org.dcp.entities.Constants.*;
 
-public class BitList implements Iterable<Bit> {
+public class BitBuffer implements Iterable<Bit> {
 
     private final long []bitSegments;
     private final int sizeInBits;
     private final int sizeInSegments;
 
-    public BitList(final int sizeInBits) {
+    public BitBuffer(final int sizeInBits) {
         if(sizeInBits <= 0)
             throw new IllegalArgumentException(String.format("Size should be >0. Size: %d\n", sizeInBits));
         this.sizeInBits = sizeInBits;
@@ -25,7 +25,7 @@ public class BitList implements Iterable<Bit> {
         this.bitSegments = new long[sizeInSegments];
     }
 
-    public BitList(final Iterator<Bit> bits, final int sizeInBits) {
+    public BitBuffer(final Iterator<Bit> bits, final int sizeInBits) {
         this(sizeInBits);
         int indexScanning = 0;
         while(bits.hasNext()) {
@@ -35,11 +35,11 @@ public class BitList implements Iterable<Bit> {
         }
     }
 
-    public BitList(final Iterable<Bit> bits, final int sizeInBits) {
+    public BitBuffer(final Iterable<Bit> bits, final int sizeInBits) {
         this(bits.iterator(), sizeInBits);
     }
 
-    public BitList(final String bitString) {
+    public BitBuffer(final String bitString) {
         this( bitString.chars().mapToObj(charValue -> Bit.valueOf((char)charValue)).iterator(), bitString.length() );
     }
 
@@ -87,18 +87,18 @@ public class BitList implements Iterable<Bit> {
         return sizeInBits;
     }
 
-    public BitList subList(final int startIndex, final int endIndexExclusive) {
+    public BitBuffer subBuffer(final int startIndex, final int endIndexExclusive) {
         if(startIndex < 0)
             throw new IndexOutOfBoundsException(String.format("Start Index out of bounds. StartIndex: %d\n", startIndex));
         if(endIndexExclusive > sizeInBits)
             throw new IndexOutOfBoundsException(String.format("End Index out of bounds. EndIndex: %d\n", endIndexExclusive));
         final int bitSize = endIndexExclusive - startIndex;
         final Iterator<Bit> iteratorSlice = iterator(startIndex, endIndexExclusive);
-        return new BitList(iteratorSlice, bitSize);
+        return new BitBuffer(iteratorSlice, bitSize);
     }
 
-    public BitList subList(final int startIndex) {
-        return subList(startIndex, sizeInBits);
+    public BitBuffer subBuffer(final int startIndex) {
+        return subBuffer(startIndex, sizeInBits);
     }
 
     public Iterator<Bit> iterator(final int startIndex, final int endIndexExclusive) {

@@ -6,7 +6,7 @@
 package org.dcp.test.io.impl;
 
 import org.dcp.entities.bit.Bit;
-import org.dcp.entities.bit.BitList;
+import org.dcp.entities.bit.BitBuffer;
 import org.dcp.io.BitInputStream;
 import org.dcp.io.impl.MockBitInputStream;
 import org.junit.Test;
@@ -30,8 +30,8 @@ public class MockBitInputStreamTest {
         final BitInputStream bitInputStream = new MockBitInputStream("1100110011");
         final int sizeInBits = 5;
         final Iterable<Bit> readBits = bitInputStream.readBits(sizeInBits);
-        final BitList bitList = new BitList(readBits, sizeInBits);
-        assertEquals(bitList.toString(), "11001");
+        final BitBuffer bitBuffer = new BitBuffer(readBits, sizeInBits);
+        assertEquals(bitBuffer.toString(), "11001");
     }
 
     @Test
@@ -40,8 +40,8 @@ public class MockBitInputStreamTest {
         final int sizeInBits = 5;
         bitInputStream.skipBits(2);
         final Iterable<Bit> readBits = bitInputStream.readBits(sizeInBits);
-        final BitList bitList = new BitList(readBits, sizeInBits);
-        assertEquals(bitList.toString(), "00110");
+        final BitBuffer bitBuffer = new BitBuffer(readBits, sizeInBits);
+        assertEquals(bitBuffer.toString(), "00110");
     }
 
 }
