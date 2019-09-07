@@ -16,22 +16,20 @@ import static org.junit.Assert.*;
 
 public class UnsignedIntegerTest {
 
-    final int sizeInBits = 4;
-
     @Test
     public void testBasicFunctionality() {
-        final UnsignedInteger unsignedIntegerDefault = new UnsignedInteger(sizeInBits);
+        final UnsignedInteger unsignedIntegerDefault = new UnsignedInteger(4);
         assertEquals(unsignedIntegerDefault.value(), 0);
 
         try {
-            final UnsignedInteger unsignedIntegerUnParsable = new UnsignedInteger(19, sizeInBits);
+            final UnsignedInteger unsignedIntegerUnParsable = new UnsignedInteger(19, 4);
             assertTrue(false);
         } catch(IllegalArgumentException ie) {
             //Good!
         }
 
         try {
-            final UnsignedInteger unsignedIntegernegative = new UnsignedInteger(-5, sizeInBits);
+            final UnsignedInteger unsignedIntegernegative = new UnsignedInteger(-5, 4);
             assertTrue(false);
         } catch(IllegalArgumentException ie) {
             //Good!
@@ -53,10 +51,12 @@ public class UnsignedIntegerTest {
     @Test
     public void testWriteFunctionality() {
         final BitOutputStream bitOutputStreamFirst = new MockBitOutputStream();
+        new UnsignedInteger(1, 1).writeTo(bitOutputStreamFirst);
+        assertEquals(bitOutputStreamFirst.toString(), "1");
         new UnsignedInteger(13, 4).writeTo(bitOutputStreamFirst);
-        assertEquals(bitOutputStreamFirst.toString(), "1101");
+        assertEquals(bitOutputStreamFirst.toString(), "11101");
         new UnsignedInteger(11, 4).writeTo(bitOutputStreamFirst);
-        assertEquals(bitOutputStreamFirst.toString(), "11011011");
+        assertEquals(bitOutputStreamFirst.toString(), "111011011");
 
         final BitOutputStream bitOutputStreamSecond = new MockBitOutputStream();
         new UnsignedInteger(0, 19).writeTo(bitOutputStreamSecond);

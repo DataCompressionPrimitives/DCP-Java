@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
-package org.dcp.entities;
+package org.dcp.entities.symbol;
 
 import org.dcp.entities.bit.BitStreamSerializable;
 

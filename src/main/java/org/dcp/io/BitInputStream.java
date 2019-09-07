@@ -7,24 +7,32 @@ package org.dcp.io;
 
 import org.dcp.entities.bit.Bit;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 
 public interface BitInputStream {
     public Bit readBit();
 
-    public default Iterable<Bit> readBits(int toRead) {
-        final List<Bit> readBits = new ArrayList<Bit>(toRead);
-        for(int readIter = 0; readIter < toRead; ++readIter) {
-            readBits.add(readBit());
-        }
-        return readBits;
+    public default Iterable<Bit> readBits(final int toRead) {
+        return () -> {
+            return new Iterator<Bit>() {
+                int readIter = 0;
+
+                @Override
+                public boolean hasNext() {
+                    return (readIter < toRead);
+                }
+
+                @Override
+                public Bit next() {
+                    ++readIter;
+                    return readBit();
+                }
+            };
+        };
     }
 
-    public default void skipBits(int toRead) {
-        for(int readIter = 0; readIter < toRead; ++readIter) {
-            readBit();
-        }
+    public default void skipBits(final int toRead) {
+        readBits(toRead).forEach(bit -> {});
     }
 
 }

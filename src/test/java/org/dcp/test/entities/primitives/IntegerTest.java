@@ -17,15 +17,13 @@ import static org.junit.Assert.assertTrue;
 
 public class IntegerTest {
 
-    final int sizeInBits = 4;
-
     @Test
     public void testBasicFunctionality() {
-        final Integer integerDefault = new Integer(sizeInBits);
+        final Integer integerDefault = new Integer(4);
         assertEquals(integerDefault.value(), 0);
 
         try {
-            final Integer integerUnParsable = new Integer(19, sizeInBits);
+            final Integer integerUnParsable = new Integer(19, 4);
             assertTrue(false);
         } catch(IllegalArgumentException ie) {
             //Good!

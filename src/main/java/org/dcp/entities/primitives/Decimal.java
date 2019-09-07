@@ -12,7 +12,7 @@ import org.dcp.util.EntropyUtil;
 
 public class Decimal implements BitStreamSerializable {
 
-    public enum DecimalFormat {
+    public static enum DecimalFormat {
 
         //Half
         IEEE_754_HALF_16(1, 5, 10),
@@ -95,7 +95,7 @@ public class Decimal implements BitStreamSerializable {
 
         @Override
         public String toString() {
-            return String.format("Sign:%s Exponent: %d Mantissa: %d Format: %s", isNegative ? "-" : "+", exponentValue, mantissaValue, format);
+            return String.format("Sign: %s Exponent: %d Mantissa: %d Format: %s", isNegative ? "-" : "+", exponentValue, mantissaValue, format);
         }
     }
 

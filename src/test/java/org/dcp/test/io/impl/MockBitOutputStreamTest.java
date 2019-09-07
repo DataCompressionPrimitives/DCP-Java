@@ -38,6 +38,12 @@ public class MockBitOutputStreamTest {
         bitOutputStream.writeBits(bitBuffer);
         bitOutputStream.flushBits();
         assertEquals(bitOutputStream.toString(), bitBuffer.toString() + "00");
+
+        final BitOutputStream bitOutputStreamSecond = new MockBitOutputStream();
+        final BitBuffer bitBufferSecond = new BitBuffer("00100100");
+        bitOutputStreamSecond.writeBits(bitBufferSecond);
+        bitOutputStreamSecond.flushBits();
+        assertEquals(bitOutputStreamSecond.toString(), bitBufferSecond.toString());
     }
 
 }

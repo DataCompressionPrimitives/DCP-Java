@@ -23,5 +23,25 @@ public class BitTest {
         assertEquals(bitSecond.value(), true);
         assertEquals(bitSecond.intValue(), 1);
         assertEquals(bitSecond.toString(), "1");
+
+        final Bit bitThird = Bit.valueOf(0);
+        assertEquals(bitThird.value(), false);
+        assertEquals(bitThird.intValue(), 0);
+        assertEquals(bitThird.toString(), "0");
+
+        final Bit bitFourth = Bit.valueOf(1);
+        assertEquals(bitFourth.value(), true);
+        assertEquals(bitFourth.intValue(), 1);
+        assertEquals(bitFourth.toString(), "1");
+
+        final Bit bitFifth = Bit.valueOf("0");
+        assertEquals(bitFifth.value(), false);
+        assertEquals(bitFifth.intValue(), 0);
+        assertEquals(bitFifth.toString(), "0");
+
+        final Bit bitSixth = Bit.valueOf("1");
+        assertEquals(bitSixth.value(), true);
+        assertEquals(bitSixth.intValue(), 1);
+        assertEquals(bitSixth.toString(), "1");
     }
 }

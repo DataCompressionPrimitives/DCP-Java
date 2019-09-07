@@ -32,8 +32,8 @@ public class ChannelBitOutputStream implements BitOutputStream {
         buffer.put(0, byteWrite);
         try {
             byteChannel.write(buffer);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
+        } catch (IOException ioException) {
+            throw new IllegalStateException(ioException);
         }
         buffer.rewind();
     }
@@ -43,12 +43,12 @@ public class ChannelBitOutputStream implements BitOutputStream {
         if (bit.value()) {
             current |= mask;
         }
-        if (mask == LAST_BIT) {
+        if (mask != LAST_BIT) {
+            mask >>>= 1;
+        } else {
             writeByte(current);
             mask = FIRST_BIT;
             current = 0;
-        } else {
-            mask >>>= 1;
         }
     }
 
@@ -56,8 +56,8 @@ public class ChannelBitOutputStream implements BitOutputStream {
     public void flushBits() {
         if(mask != LAST_BIT) {
             writeByte(current);
+            mask = FIRST_BIT;
+            current = 0;
         }
-        mask = FIRST_BIT;
-        current = 0;
     }
 }

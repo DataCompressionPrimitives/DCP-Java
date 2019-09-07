@@ -34,10 +34,17 @@ public class ChannelBitOutputStreamTest {
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         final WritableByteChannel channel = Channels.newChannel(outputStream);
         final BitOutputStream bitOutputStream = new ChannelBitOutputStream(channel);
-        final BitBuffer bitBuffer = new BitBuffer("001001");
+        final BitBuffer bitBuffer = new BitBuffer("00100100");
         bitOutputStream.writeBits(bitBuffer);
-        bitOutputStream.flushBits();
         assertEquals(outputStream.toByteArray()[0], (byte) 0b00100100);
+    }
+
+    @Test
+    public void testCloseFunctionality() {
+        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        final WritableByteChannel channel = Channels.newChannel(outputStream);
+        try(final BitOutputStream bitOutputStream = new ChannelBitOutputStream(channel)) {
+        }
     }
 
 }

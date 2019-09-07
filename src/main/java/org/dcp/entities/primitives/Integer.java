@@ -12,8 +12,9 @@ import org.dcp.util.EntropyUtil;
 
 public class Integer implements BitStreamSerializable {
 
-    final UnsignedInteger unsignedInteger;
-    final boolean isNegative;
+    private final UnsignedInteger unsignedInteger;
+    private final int sizeInBits;
+    private final boolean isNegative;
 
     public Integer(final long integralValue, final int sizeInBits) {
         isNegative = (integralValue < 0);
@@ -21,7 +22,8 @@ public class Integer implements BitStreamSerializable {
         final int sizeInBitsUnsigned = sizeInBits - 1;
         final long neededSizeInBits = EntropyUtil.findSizeOfBitsToHold(unsignedIntValue);
         if(neededSizeInBits > sizeInBitsUnsigned)
-            throw new IllegalArgumentException(String.format("Needed Bits cannot be > than SizeUnsigned. NeededSize: %d SizeUnsigned: %d", neededSizeInBits, sizeInBitsUnsigned));
+            throw new IllegalArgumentException(String.format("Size too small to Hold Value. NeededSize: %d SizeUnsigned: %d", neededSizeInBits, sizeInBitsUnsigned));
+        this.sizeInBits = sizeInBits;
         this.unsignedInteger = new UnsignedInteger(unsignedIntValue, sizeInBitsUnsigned);
     }
 
@@ -30,20 +32,31 @@ public class Integer implements BitStreamSerializable {
     }
 
     public long value() {
-        return isNegative? -unsignedInteger.integralValue : unsignedInteger.integralValue;
+        final long unsignedValue = unsignedInteger.value();
+        return isNegative? -unsignedValue : unsignedValue;
+    }
+
+    public int getSizeInBits() {
+        return sizeInBits;
     }
 
     @Override
-    public Integer readFrom(BitInputStream bitInputStream) {
+    public Integer readFrom(final BitInputStream bitInputStream) {
         boolean isNegative = bitInputStream.readBit().value();
         final UnsignedInteger readInteger = unsignedInteger.readFrom(bitInputStream);
-        final long integralValue = isNegative? (-readInteger.integralValue): readInteger.integralValue;
-        return new Integer(integralValue, unsignedInteger.sizeInBits + 1);
+        final long unsignedValue = readInteger.value();
+        final long integralValue = isNegative? -unsignedValue : unsignedValue;
+        return new Integer(integralValue, readInteger.getSizeInBits() + 1);
     }
 
     @Override
-    public void writeTo(BitOutputStream bitOutputStream) {
+    public void writeTo(final BitOutputStream bitOutputStream) {
         new Boolean(isNegative).writeTo(bitOutputStream);
         unsignedInteger.writeTo(bitOutputStream);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value());
     }
 }

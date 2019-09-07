@@ -13,9 +13,7 @@ public interface BitOutputStream extends Closeable {
     public void writeBit(final Bit bit);
 
     public default void writeBits(final Iterable<Bit> bits) {
-        for(final Bit bit: bits) {
-            writeBit(bit);
-        }
+        bits.forEach(bit -> writeBit(bit));
     }
 
     @Override

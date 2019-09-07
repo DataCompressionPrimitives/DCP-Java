@@ -33,11 +33,11 @@ public class ChannelBitInputStream implements BitInputStream {
             final int count;
             try {
                 count = byteChannel.read(buffer);
-            } catch (IOException e) {
-                throw new IllegalStateException(e);
+            } catch (IOException ioException) {
+                throw new IllegalStateException(ioException);
             }
             if (count < 1) {
-                throw new IllegalStateException();
+                throw new IllegalStateException("Unable to read from ReadableByteChannel.");
             }
         }
         final byte readByte = buffer.get(0);
@@ -51,10 +51,10 @@ public class ChannelBitInputStream implements BitInputStream {
             current = readByte();
         }
         final Bit readBit = Bit.valueOf((current & mask) != 0);
-        if (mask == LAST_BIT) {
-            mask = FIRST_BIT;
-        } else {
+        if (mask != LAST_BIT) {
             mask >>>= 1;
+        } else {
+            mask = FIRST_BIT;
         }
         return readBit;
     }

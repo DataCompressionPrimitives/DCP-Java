@@ -79,6 +79,14 @@ public class BitBufferTest {
     }
 
     @Test
+    public void testAppendFunctionality() {
+        final int sizeInBits = 4;
+        final BitBuffer bitBuffer = new BitBuffer(sizeInBits);
+        assertEquals(bitBuffer.toString(), "0000");
+        assertEquals(bitBuffer.append(new BitBuffer("11")).toString(),  "000011");
+    }
+
+    @Test
     public void testReadStringFunctionality() {
         final String integerToString = Long.toBinaryString(32);
         final BitBuffer bitBuffer = new BitBuffer(integerToString);

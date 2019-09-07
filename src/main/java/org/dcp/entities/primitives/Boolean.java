@@ -12,7 +12,7 @@ import org.dcp.io.BitOutputStream;
 
 public class Boolean implements BitStreamSerializable {
 
-    final boolean value;
+    private final boolean value;
 
     public Boolean(final boolean value) {
         this.value = value;
@@ -34,5 +34,10 @@ public class Boolean implements BitStreamSerializable {
     @Override
     public void writeTo(final BitOutputStream bitOutputStream) {
         bitOutputStream.writeBit(Bit.valueOf(value));
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
     }
 }

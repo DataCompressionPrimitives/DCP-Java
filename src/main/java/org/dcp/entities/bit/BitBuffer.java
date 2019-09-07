@@ -27,11 +27,11 @@ public class BitBuffer implements Iterable<Bit> {
 
     public BitBuffer(final Iterator<Bit> bits, final int sizeInBits) {
         this(sizeInBits);
-        int indexScanning = 0;
+        int bitIter = 0;
         while(bits.hasNext()) {
-            if(indexScanning >= sizeInBits)
+            if(bitIter >= sizeInBits)
                 break;
-            setBit(indexScanning++, bits.next());
+            setBit(bitIter++, bits.next());
         }
     }
 
@@ -93,8 +93,7 @@ public class BitBuffer implements Iterable<Bit> {
         if(endIndexExclusive > sizeInBits)
             throw new IndexOutOfBoundsException(String.format("End Index out of bounds. EndIndex: %d\n", endIndexExclusive));
         final int bitSize = endIndexExclusive - startIndex;
-        final Iterator<Bit> iteratorSlice = iterator(startIndex, endIndexExclusive);
-        return new BitBuffer(iteratorSlice, bitSize);
+        return new BitBuffer(iterator(startIndex, endIndexExclusive), bitSize);
     }
 
     public BitBuffer subBuffer(final int startIndex) {
@@ -127,6 +126,22 @@ public class BitBuffer implements Iterable<Bit> {
 
     public Iterator<Bit> iterator() {
         return iterator(0);
+    }
+
+    public BitBuffer append(final Iterable<Bit> appendBits, final int appendSizeInBits) {
+        final int newSizeInBits = sizeInBits + appendSizeInBits;
+        final BitBuffer bitBufferNew = new BitBuffer(this, newSizeInBits);
+        int bitIter = sizeInBits;
+        for(final Bit bit: appendBits) {
+            if(bitIter >= newSizeInBits)
+                break;
+            bitBufferNew.setBit(bitIter++, bit);
+        }
+        return bitBufferNew;
+    }
+
+    public BitBuffer append(final BitBuffer bitBuffer) {
+        return append(bitBuffer, bitBuffer.sizeInBits);
     }
 
     public String toString() {
