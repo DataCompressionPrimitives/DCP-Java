@@ -13,7 +13,7 @@ import org.dcp.entities.bit.BitStreamSerializable;
 import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
 
-public class Boolean implements BitStreamSerializable {
+public class Boolean implements BitStreamSerializable<Boolean> {
 
   private final boolean value;
 

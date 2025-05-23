@@ -17,7 +17,7 @@ import org.dcp.entities.bit.BitStreamSerializable;
 import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
 
-public class VarUnsignedInteger implements BitStreamSerializable {
+public class VarUnsignedInteger implements BitStreamSerializable<VarUnsignedInteger> {
 
   final UnsignedInteger value;
   final int sizeInBits;

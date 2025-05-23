@@ -16,7 +16,7 @@ import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
 import org.dcp.util.EntropyUtil;
 
-public class UnsignedInteger implements BitStreamSerializable, Iterable<Bit> {
+public class UnsignedInteger implements BitStreamSerializable<UnsignedInteger>, Iterable<Bit> {
 
   private final int sizeInBits;
   private final long integralValue;

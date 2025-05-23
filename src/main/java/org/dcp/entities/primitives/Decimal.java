@@ -13,7 +13,7 @@ import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
 import org.dcp.util.EntropyUtil;
 
-public class Decimal implements BitStreamSerializable {
+public class Decimal implements BitStreamSerializable<Decimal> {
 
   public static enum DecimalFormat {
 

@@ -13,7 +13,7 @@ import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
 import org.dcp.util.EntropyUtil;
 
-public class Integer implements BitStreamSerializable {
+public class Integer implements BitStreamSerializable<Integer> {
 
   private final UnsignedInteger unsignedInteger;
   private final int sizeInBits;

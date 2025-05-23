@@ -10,7 +10,7 @@ package org.dcp.entities.symbol;
 
 import org.dcp.entities.bit.BitStreamSerializable;
 
-public abstract class Symbol implements BitStreamSerializable {
+public abstract class Symbol implements BitStreamSerializable<Symbol> {
 
   protected final int indexValue;
   protected int occurences = 0;
