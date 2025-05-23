@@ -24,10 +24,11 @@ public class ChannelBitOutputStreamTest {
   public void testBasicFunctionality() {
     final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     final WritableByteChannel channel = Channels.newChannel(outputStream);
-    final BitOutputStream bitOutputStream = new ChannelBitOutputStream(channel);
-    bitOutputStream.writeBit(Bit.TRUE);
-    bitOutputStream.writeBit(Bit.FALSE);
-    bitOutputStream.flushBits();
+    try (final BitOutputStream bitOutputStream = new ChannelBitOutputStream(channel)) {
+      bitOutputStream.writeBit(Bit.TRUE);
+      bitOutputStream.writeBit(Bit.FALSE);
+      bitOutputStream.flushBits();
+    }
     assertEquals(outputStream.toByteArray()[0], (byte) 0b10000000);
   }
 
@@ -35,9 +36,10 @@ public class ChannelBitOutputStreamTest {
   public void testWriteBitsFunctionality() {
     final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     final WritableByteChannel channel = Channels.newChannel(outputStream);
-    final BitOutputStream bitOutputStream = new ChannelBitOutputStream(channel);
-    final BitBuffer bitBuffer = new BitBuffer("00100100");
-    bitOutputStream.writeBits(bitBuffer);
+    try (final BitOutputStream bitOutputStream = new ChannelBitOutputStream(channel)) {
+      final BitBuffer bitBuffer = new BitBuffer("00100100");
+      bitOutputStream.writeBits(bitBuffer);
+    }
     assertEquals(outputStream.toByteArray()[0], (byte) 0b00100100);
   }
 

@@ -26,15 +26,14 @@ public class IntegerTest {
     assertEquals(integerDefault.value(), 0);
 
     try {
-      final Integer integerUnParsable = new Integer(19, 4);
+      new Integer(19, 4);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
-      final Integer integerMaybeParsable =
-          new Integer(java.lang.Long.MIN_VALUE, Constants.BITS_IN_A_INTEGER);
+      new Integer(java.lang.Long.MIN_VALUE, Constants.BITS_IN_A_INTEGER);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!

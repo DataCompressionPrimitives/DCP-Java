@@ -20,32 +20,36 @@ public class MockBitOutputStreamTest {
 
   @Test
   public void testBasicFunctionality() {
-    final BitOutputStream bitOutputStream = new MockBitOutputStream();
-    bitOutputStream.writeBit(Bit.TRUE);
-    bitOutputStream.writeBit(Bit.FALSE);
-    assertEquals(bitOutputStream.toString(), "10");
+    try (final BitOutputStream bitOutputStream = new MockBitOutputStream()) {
+      bitOutputStream.writeBit(Bit.TRUE);
+      bitOutputStream.writeBit(Bit.FALSE);
+      assertEquals(bitOutputStream.toString(), "10");
+    }
   }
 
   @Test
   public void testWriteBitsFunctionality() {
-    final BitOutputStream bitOutputStream = new MockBitOutputStream();
-    final BitBuffer bitBuffer = new BitBuffer("001001");
-    bitOutputStream.writeBits(bitBuffer);
-    assertEquals(bitOutputStream.toString(), bitBuffer.toString());
+    try (final BitOutputStream bitOutputStream = new MockBitOutputStream()) {
+      final BitBuffer bitBuffer = new BitBuffer("001001");
+      bitOutputStream.writeBits(bitBuffer);
+      assertEquals(bitOutputStream.toString(), bitBuffer.toString());
+    }
   }
 
   @Test
   public void testFlushFunctionality() {
-    final BitOutputStream bitOutputStream = new MockBitOutputStream();
-    final BitBuffer bitBuffer = new BitBuffer("001001");
-    bitOutputStream.writeBits(bitBuffer);
-    bitOutputStream.flushBits();
-    assertEquals(bitOutputStream.toString(), bitBuffer.toString() + "00");
+    try (final BitOutputStream bitOutputStream = new MockBitOutputStream()) {
+      final BitBuffer bitBuffer = new BitBuffer("001001");
+      bitOutputStream.writeBits(bitBuffer);
+      bitOutputStream.flushBits();
+      assertEquals(bitOutputStream.toString(), bitBuffer.toString() + "00");
+    }
 
-    final BitOutputStream bitOutputStreamSecond = new MockBitOutputStream();
-    final BitBuffer bitBufferSecond = new BitBuffer("00100100");
-    bitOutputStreamSecond.writeBits(bitBufferSecond);
-    bitOutputStreamSecond.flushBits();
-    assertEquals(bitOutputStreamSecond.toString(), bitBufferSecond.toString());
+    try (final BitOutputStream bitOutputStreamSecond = new MockBitOutputStream()) {
+      final BitBuffer bitBufferSecond = new BitBuffer("00100100");
+      bitOutputStreamSecond.writeBits(bitBufferSecond);
+      bitOutputStreamSecond.flushBits();
+      assertEquals(bitOutputStreamSecond.toString(), bitBufferSecond.toString());
+    }
   }
 }

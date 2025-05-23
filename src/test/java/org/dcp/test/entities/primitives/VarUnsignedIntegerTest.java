@@ -24,32 +24,28 @@ public class VarUnsignedIntegerTest {
   @Test
   public void testBasicFunctionality() {
     try {
-      final VarUnsignedInteger varUnsignedIntegerTooSmall =
-          new VarUnsignedInteger(new UnsignedInteger(231, 12), 1);
+      new VarUnsignedInteger(new UnsignedInteger(231, 12), 1);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
-      final VarUnsignedInteger varUnsignedIntegerTooUnoptimal =
-          new VarUnsignedInteger(new UnsignedInteger(231, 12), 2);
+      new VarUnsignedInteger(new UnsignedInteger(231, 12), 2);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
-      final VarUnsignedInteger varUnsignedIntegerBorderLine =
-          new VarUnsignedInteger(new UnsignedInteger(231, 12), 7);
+      new VarUnsignedInteger(new UnsignedInteger(231, 12), 7);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
-      final VarUnsignedInteger varUnsignedIntegerBorderLine =
-          new VarUnsignedInteger(new UnsignedInteger(231, 12), 7);
+      new VarUnsignedInteger(new UnsignedInteger(231, 12), 7);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!
@@ -60,16 +56,14 @@ public class VarUnsignedIntegerTest {
     assertEquals(varUnsignedIntegerDefault.value(), 231);
 
     try {
-      final VarUnsignedInteger varUnsignedIntegerTooBig =
-          new VarUnsignedInteger(new UnsignedInteger(231, 12), 12);
+      new VarUnsignedInteger(new UnsignedInteger(231, 12), 12);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
-      final VarUnsignedInteger varUnsignedIntegerTooBigAgain =
-          new VarUnsignedInteger(new UnsignedInteger(231, 12), 13);
+      new VarUnsignedInteger(new UnsignedInteger(231, 12), 13);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!

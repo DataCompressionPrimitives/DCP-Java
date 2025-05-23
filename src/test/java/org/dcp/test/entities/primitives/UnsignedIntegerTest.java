@@ -25,14 +25,14 @@ public class UnsignedIntegerTest {
     assertEquals(unsignedIntegerDefault.value(), 0);
 
     try {
-      final UnsignedInteger unsignedIntegerUnParsable = new UnsignedInteger(19, 4);
+      new UnsignedInteger(19, 4);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
-      final UnsignedInteger unsignedIntegernegative = new UnsignedInteger(-5, 4);
+      new UnsignedInteger(-5, 4);
       assertTrue(false);
     } catch (IllegalArgumentException ie) {
       // Good!
