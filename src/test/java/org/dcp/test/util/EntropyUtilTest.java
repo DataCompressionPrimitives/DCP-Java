@@ -9,6 +9,7 @@
 package org.dcp.test.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 import org.dcp.util.EntropyUtil;
@@ -45,6 +46,44 @@ public class EntropyUtilTest {
             new BigInteger(
                 "179769313486231590772930519078902473361797697894230657273430081157732675805500963132708477322407536021120113879871393357658789768814416622492847430639474124377767893424865485276302219601246094119453082952085005768838150682342462881473913110540827237163350510684586298239947245938479716304835356329624224137215")),
         1024);
+  }
+
+  @Test
+  public void testFindSizeOfDigitsToHold() {
+
+    // Base 2
+    assertEquals(1, EntropyUtil.findSizeOfDigitsToHold(0, 2));
+    assertEquals(1, EntropyUtil.findSizeOfDigitsToHold(1, 2));
+    assertEquals(2, EntropyUtil.findSizeOfDigitsToHold(2, 2));
+    assertEquals(2, EntropyUtil.findSizeOfDigitsToHold(3, 2));
+    assertEquals(3, EntropyUtil.findSizeOfDigitsToHold(4, 2));
+
+    // Base 3
+    assertEquals(1, EntropyUtil.findSizeOfDigitsToHold(0, 3));
+    assertEquals(1, EntropyUtil.findSizeOfDigitsToHold(2, 3));
+    assertEquals(2, EntropyUtil.findSizeOfDigitsToHold(3, 3));
+    assertEquals(2, EntropyUtil.findSizeOfDigitsToHold(8, 3));
+    assertEquals(3, EntropyUtil.findSizeOfDigitsToHold(9, 3));
+
+    // Base 10
+    assertEquals(1, EntropyUtil.findSizeOfDigitsToHold(0, 10));
+    assertEquals(1, EntropyUtil.findSizeOfDigitsToHold(9, 10));
+    assertEquals(2, EntropyUtil.findSizeOfDigitsToHold(10, 10));
+    assertEquals(3, EntropyUtil.findSizeOfDigitsToHold(100, 10));
+
+    // Test invalid base
+    try {
+      EntropyUtil.findSizeOfDigitsToHold(10, 1);
+      fail("Should throw IllegalArgumentException for base 1 (base must be > 1)");
+    } catch (IllegalArgumentException e) {
+      // expected
+    }
+    try {
+      EntropyUtil.findSizeOfDigitsToHold(10, 0);
+      fail("Should throw IllegalArgumentException for base 0 (base must be > 1)");
+    } catch (IllegalArgumentException e) {
+      // expected
+    }
   }
 
   @Test

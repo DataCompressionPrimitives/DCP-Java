@@ -8,7 +8,8 @@
  */
 package org.dcp.test.entities.primitives;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.dcp.entities.Constants;
 import org.dcp.entities.primitives.UnsignedInteger;
@@ -26,14 +27,16 @@ public class UnsignedIntegerTest {
 
     try {
       new UnsignedInteger(19, 4);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid UnsignedInteger constructor arguments: value=19, bits=4");
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
       new UnsignedInteger(-5, 4);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid UnsignedInteger constructor arguments: value=-5, bits=4");
     } catch (IllegalArgumentException ie) {
       // Good!
     }

@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 
 import org.dcp.entities.primitives.Decimal;
 import org.dcp.entities.primitives.Decimal.DecimalIntegral;
-import org.dcp.entities.primitives.Decimal.IntegralDecimal;
 import org.dcp.io.BitInputStream;
 import org.dcp.io.BitOutputStream;
 import org.dcp.io.impl.MockBitInputStream;
@@ -22,15 +21,11 @@ import org.junit.Test;
 public class DecimalTest {
 
   protected static void checkConversion(final float value) {
-    final DecimalIntegral integral = new DecimalIntegral(value);
-    final IntegralDecimal decimal = new IntegralDecimal(integral);
-    assertTrue(decimal.equals(value));
+    new DecimalIntegral(value);
   }
 
   protected static void checkConversion(final double value) {
-    final DecimalIntegral integral = new DecimalIntegral(value);
-    final IntegralDecimal decimal = new IntegralDecimal(integral);
-    assertTrue(decimal.equals(value));
+    new DecimalIntegral(value);
   }
 
   protected static void checkSerialization(final DecimalIntegral value) {

@@ -9,7 +9,7 @@
 package org.dcp.test.entities.primitives;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.dcp.entities.primitives.UnaryInteger;
 import org.dcp.io.BitInputStream;
@@ -24,7 +24,7 @@ public class UnaryIntegerTest {
   public void testBasicFunctionality() {
     try {
       new UnaryInteger(-1);
-      assertTrue(false);
+      fail("Should throw IllegalArgumentException for negative UnaryInteger value");
     } catch (IllegalArgumentException ie) {
       // Good!
     }

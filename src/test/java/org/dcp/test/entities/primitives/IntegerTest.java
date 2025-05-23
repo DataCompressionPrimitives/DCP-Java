@@ -9,7 +9,7 @@
 package org.dcp.test.entities.primitives;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.dcp.entities.Constants;
 import org.dcp.entities.primitives.Integer;
@@ -27,14 +27,16 @@ public class IntegerTest {
 
     try {
       new Integer(19, 4);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid Integer constructor arguments: value=19, bits=4");
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
       new Integer(java.lang.Long.MIN_VALUE, Constants.BITS_IN_A_INTEGER);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid Integer constructor arguments: value=Long.MIN_VALUE, bits=Constants.BITS_IN_A_INTEGER");
     } catch (IllegalArgumentException ie) {
       // Good!
     }

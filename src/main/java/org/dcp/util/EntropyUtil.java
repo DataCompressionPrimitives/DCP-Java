@@ -14,6 +14,18 @@ import java.math.BigInteger;
 
 public class EntropyUtil {
 
+  public static int findSizeOfDigitsToHold(final long givenValue, final long base) {
+    if (base <= 1) throw new IllegalArgumentException("Base must be greater than 1.");
+    if (givenValue == 0) return 1;
+    int digits = 0;
+    long value = givenValue;
+    while (value > 0) {
+      value /= base;
+      digits++;
+    }
+    return digits;
+  }
+
   protected static int findSizeOfBitsToHoldWithComplement(final long givenValue) {
     int bitCount = 0;
     long bitShiftValue = givenValue;

@@ -38,7 +38,7 @@ public class UnaryInteger implements BitStreamSerializable<UnaryInteger> {
 
   @Override
   public UnaryInteger readFrom(final BitInputStream bitInputStream) {
-    int count = 0;
+    long count = 0;
     while (bitInputStream.readBit().value()) {
       count++;
     }
@@ -47,7 +47,7 @@ public class UnaryInteger implements BitStreamSerializable<UnaryInteger> {
 
   @Override
   public void writeTo(final BitOutputStream bitOutputStream) {
-    for (int i = 0; i < integralValue; i++) {
+    for (long i = 0; i < integralValue; i++) {
       bitOutputStream.writeBit(Bit.TRUE);
     }
     bitOutputStream.writeBit(Bit.FALSE);

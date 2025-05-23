@@ -9,7 +9,7 @@
 package org.dcp.test.entities.primitives;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.dcp.entities.primitives.UnsignedInteger;
 import org.dcp.entities.primitives.VarUnsignedInteger;
@@ -25,28 +25,32 @@ public class VarUnsignedIntegerTest {
   public void testBasicFunctionality() {
     try {
       new VarUnsignedInteger(new UnsignedInteger(231, 12), 1);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid VarUnsignedInteger constructor arguments");
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
       new VarUnsignedInteger(new UnsignedInteger(231, 12), 2);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid VarUnsignedInteger constructor arguments");
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
       new VarUnsignedInteger(new UnsignedInteger(231, 12), 7);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid VarUnsignedInteger constructor arguments");
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
       new VarUnsignedInteger(new UnsignedInteger(231, 12), 7);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid VarUnsignedInteger constructor arguments");
     } catch (IllegalArgumentException ie) {
       // Good!
     }
@@ -57,14 +61,16 @@ public class VarUnsignedIntegerTest {
 
     try {
       new VarUnsignedInteger(new UnsignedInteger(231, 12), 12);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid VarUnsignedInteger constructor arguments");
     } catch (IllegalArgumentException ie) {
       // Good!
     }
 
     try {
       new VarUnsignedInteger(new UnsignedInteger(231, 12), 13);
-      assertTrue(false);
+      fail(
+          "Should throw IllegalArgumentException for invalid VarUnsignedInteger constructor arguments");
     } catch (IllegalArgumentException ie) {
       // Good!
     }
