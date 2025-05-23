@@ -1,23 +1,88 @@
+// =====================
+// Plugins
+// =====================
 plugins {
     id 'java'
     id 'jacoco'
-    id 'com.github.hierynomus.license' version '0.15.0'
+    id 'com.github.hierynomus.license' version '0.16.1'
+    id 'com.diffplug.spotless' version '6.25.0'
 }
 
-group 'org.dcp'
-version '1.0'
-
+// =====================
+// Project Metadata
+// =====================
+group = 'org.dcp'
+version = '1.0'
 sourceCompatibility = 1.8
 
-license {
-    header rootProject.file('code/Header.java')
-    strictCheck true
-}
-
+// =====================
+// Repositories
+// =====================
 repositories {
     mavenCentral()
 }
 
+// =====================
+// Dependencies
+// =====================
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+// =====================
+// Formatting & License
+// =====================
+spotless {
+    java {
+        googleJavaFormat('1.17.0')
+    }
+}
+
+license {
+    def headerFile = rootProject.file('code/License.tmpl')
+    header headerFile
+    strictCheck false
+}
+
+tasks.register('format') {
+    group = 'Formatting'
+    description = 'Formats source code and adds license headers.'
+    dependsOn 'licenseFormat', 'spotlessApply'
+}
+
+tasks.register('lint') {
+    group = 'Linting'
+    description = 'Runs spotless check and license check.'
+    dependsOn 'license', 'spotlessCheck'
+}
+
+// =====================
+// Build & Compile
+// =====================
+tasks.named('compileJava') {
+    dependsOn 'format'
+}
+
+tasks.named('compileTestJava') {
+    dependsOn 'format'
+}
+
+// =====================
+// Testing & Coverage
+// =====================
+jacoco {
+    toolVersion = "0.8.13"
+}
+
+test {
+    finalizedBy jacocoTestReport // Generate report after tests
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
+    }
 }

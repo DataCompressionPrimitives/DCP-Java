@@ -1,30 +1,39 @@
 /**
- * Copyright 2019 DataCompressionPrimitives.
+ * Copyright 2019-Present DataCompressionPrimitives.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
+ *
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  */
 package org.dcp.io;
 
+import java.util.Iterator;
 import org.dcp.entities.bit.Bit;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public interface BitInputStream {
-    public Bit readBit();
+  public Bit readBit();
 
-    public default Iterable<Bit> readBits(int toRead) {
-        final List<Bit> readBits = new ArrayList<Bit>(toRead);
-        for(int readIter = 0; readIter < toRead; ++readIter) {
-            readBits.add(readBit());
+  public default Iterable<Bit> readBits(final int toRead) {
+    return () -> {
+      return new Iterator<Bit>() {
+        int readIter = 0;
+
+        @Override
+        public boolean hasNext() {
+          return (readIter < toRead);
         }
-        return readBits;
-    }
 
-    public default void skipBits(int toRead) {
-        for(int readIter = 0; readIter < toRead; ++readIter) {
-            readBit();
+        @Override
+        public Bit next() {
+          ++readIter;
+          return readBit();
         }
-    }
+      };
+    };
+  }
 
+  public default void skipBits(final int toRead) {
+    readBits(toRead).forEach(bit -> {});
+  }
 }
